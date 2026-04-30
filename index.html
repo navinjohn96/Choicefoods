@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Choice Foods – Pravithanam, Pala</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --gold: #B8860B;
+    --gold-light: #E8C96B;
+    --cream: #FAF7F0;
+    --dark: #1A1208;
+    --muted: #6B6050;
+    --border: rgba(184,134,11,0.25);
+    --section-bg: #F5F0E8;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--dark); }
+
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(250,247,240,0.96); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2.5rem; height: 64px;
+  }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; letter-spacing: 0.05em; color: var(--dark); }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; color: var(--muted); transition: color 0.2s; cursor: pointer; }
+  .nav-links a:hover { color: var(--gold); }
+
+  .hero {
+    min-height: 92vh; display: flex; align-items: center;
+    background: linear-gradient(135deg, #1A1208 0%, #2C1F0A 60%, #3D2C10 100%);
+    position: relative; overflow: hidden; padding: 4rem 2.5rem;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(184,134,11,0.15) 0%, transparent 60%);
+  }
+  .hero-pattern {
+    position: absolute; right: 0; top: 0; width: 50%; height: 100%;
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(184,134,11,0.04) 30px, rgba(184,134,11,0.04) 31px);
+  }
+  .hero-content { position: relative; max-width: 680px; }
+  .hero-eyebrow {
+    font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold-light); margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .hero-eyebrow::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--gold); }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 300; color: #FAF7F0; line-height: 1.05; margin-bottom: 1.5rem;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold-light); }
+  .hero-desc {
+    font-size: 1rem; font-weight: 300; color: rgba(250,247,240,0.65);
+    line-height: 1.8; margin-bottom: 2.5rem; max-width: 440px;
+  }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    border: 1px solid var(--gold); color: var(--gold-light);
+    padding: 0.85rem 2rem; font-size: 0.8rem; letter-spacing: 0.15em;
+    text-transform: uppercase; cursor: pointer;
+    background: transparent; transition: all 0.3s; font-family: 'Jost', sans-serif;
+  }
+  .hero-cta:hover { background: var(--gold); color: var(--dark); }
+  .hero-cta .arrow { transition: transform 0.3s; }
+  .hero-cta:hover .arrow { transform: translateX(4px); }
+
+  .about { padding: 6rem 2.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; max-width: 1100px; margin: 0 auto; }
+  .about-label { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .about h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 400; line-height: 1.2; margin-bottom: 1.5rem; }
+  .about p { font-size: 0.95rem; font-weight: 300; color: var(--muted); line-height: 1.9; margin-bottom: 1.2rem; }
+  .about-divider { width: 48px; height: 2px; background: var(--gold); margin: 1.5rem 0; }
+  .about-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .stat { text-align: center; padding: 1.5rem 1rem; border: 1px solid var(--border); }
+  .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 400; color: var(--gold); display: block; }
+  .stat-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; display: block; }
+
+  .categories { padding: 6rem 2.5rem; background: var(--section-bg); }
+  .section-header { text-align: center; margin-bottom: 3.5rem; }
+  .section-header .label { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; display: block; }
+  .section-header h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 400; }
+  .cat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
+  .cat-card {
+    background: var(--cream); border: 1px solid var(--border);
+    padding: 2rem 1.5rem; text-align: center; cursor: pointer;
+    transition: all 0.3s; position: relative; overflow: hidden;
+  }
+  .cat-card::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 0; background: var(--gold); transition: height 0.3s;
+  }
+  .cat-card:hover::after { height: 3px; }
+  .cat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(184,134,11,0.12); }
+  .cat-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+  .cat-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 400; margin-bottom: 0.5rem; }
+  .cat-card p { font-size: 0.78rem; color: var(--muted); font-weight: 300; line-height: 1.6; }
+  .cat-card .view-btn {
+    margin-top: 1.2rem; font-size: 0.7rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--gold); font-weight: 500;
+    display: inline-block; border-bottom: 1px solid transparent; transition: border-color 0.2s;
+  }
+  .cat-card:hover .view-btn { border-color: var(--gold); }
+
+  .menu-section { padding: 6rem 2.5rem; max-width: 1100px; margin: 0 auto; display: none; }
+  .menu-section.active { display: block; }
+  .menu-back {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gold); cursor: pointer; margin-bottom: 2.5rem;
+    background: none; border: none; font-family: 'Jost', sans-serif;
+  }
+  .menu-title { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 400; margin-bottom: 0.5rem; }
+  .menu-divider { width: 48px; height: 2px; background: var(--gold); margin: 1rem 0 2.5rem; }
+  .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .menu-item { background: var(--cream); padding: 1.5rem; transition: background 0.2s; }
+  .menu-item:hover { background: var(--section-bg); }
+  .menu-item-name { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 400; margin-bottom: 0.3rem; }
+  .menu-item-detail { font-size: 0.78rem; color: var(--muted); font-weight: 300; }
+  .menu-item-tag {
+    display: inline-block; margin-top: 0.6rem; font-size: 0.65rem;
+    letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 8px;
+    border: 1px solid var(--border); color: var(--gold);
+  }
+
+  .brands { padding: 5rem 2.5rem; background: var(--dark); }
+  .brands .section-header .label { color: var(--gold-light); }
+  .brands .section-header h2 { color: #FAF7F0; }
+  .brand-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; max-width: 900px; margin: 0 auto; }
+  .brand-chip {
+    padding: 0.75rem 1.75rem; border: 1px solid rgba(184,134,11,0.4);
+    color: rgba(250,247,240,0.7); font-size: 0.82rem; letter-spacing: 0.12em;
+    text-transform: uppercase; font-weight: 300; transition: all 0.25s;
+  }
+  .brand-chip:hover { border-color: var(--gold); color: var(--gold-light); background: rgba(184,134,11,0.08); }
+
+  .contact { padding: 6rem 2.5rem; text-align: center; }
+  .contact .label { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; display: block; }
+  .contact h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 400; margin-bottom: 1rem; }
+  .contact > p { font-size: 0.95rem; color: var(--muted); font-weight: 300; margin-bottom: 2.5rem; }
+  .contact-cards { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+  .contact-card { border: 1px solid var(--border); padding: 2rem 2.5rem; min-width: 200px; }
+  .contact-card .cc-label { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; display: block; }
+  .contact-card .cc-value { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; line-height: 1.6; color: var(--dark); }
+  .contact-card a { color: var(--gold); text-decoration: none; font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; }
+  .contact-card a:hover { text-decoration: underline; }
+  .whatsapp-btn {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    background: #25D366; color: #fff; border: none;
+    padding: 0.85rem 2rem; font-size: 0.82rem; letter-spacing: 0.12em;
+    text-transform: uppercase; cursor: pointer; font-family: 'Jost', sans-serif;
+    font-weight: 500; text-decoration: none; margin-top: 2.5rem; transition: background 0.2s;
+  }
+  .whatsapp-btn:hover { background: #1ebe5c; }
+
+  footer { background: #0E0A04; padding: 2rem 2.5rem; text-align: center; border-top: 1px solid rgba(184,134,11,0.15); }
+  footer p { font-size: 0.75rem; color: rgba(250,247,240,0.35); letter-spacing: 0.05em; }
+  footer span { color: var(--gold); }
+
+  @media(max-width: 700px) {
+    .about { grid-template-columns: 1fr; gap: 2.5rem; }
+    .nav-links { display: none; }
+    nav { padding: 0 1.5rem; }
+    .hero, .about, .categories, .menu-section, .contact, .brands { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .contact-cards { flex-direction: column; align-items: center; }
+    .about-stats { grid-template-columns: repeat(3,1fr); gap: 0.75rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Choice <span>Foods</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#categories">Products</a></li>
+    <li><a href="#brands">Brands</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-pattern"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Est. in Pravithanam, Pala</div>
+    <h1>Quality you<br>can <em>taste</em> in<br>every choice.</h1>
+    <p class="hero-desc">From kitchen staples to artisan specialities — Choice Foods brings you premium frozen foods, handcrafted spices, traditional pickles, snacks and more.</p>
+    <button class="hero-cta" onclick="document.getElementById('categories').scrollIntoView({behavior:'smooth'})">
+      Explore Our Products <span class="arrow">→</span>
+    </button>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div>
+    <div class="about-label">Who We Are</div>
+    <h2>Rooted in Kerala, Crafted for Your Table</h2>
+    <div class="about-divider"></div>
+    <p>Choice Foods is a trusted food supplier based in Pravithanam, Pala — the heartland of Kerala. We bring together the finest local produce and premium brands to deliver an exceptional range of everyday essentials and speciality foods.</p>
+    <p>From freshly milled flours to lovingly prepared pickles, every product we carry reflects our commitment to quality, authenticity, and the rich culinary traditions of the region.</p>
+  </div>
+  <div class="about-stats">
+    <div class="stat"><span class="stat-num">5+</span><span class="stat-label">Categories</span></div>
+    <div class="stat"><span class="stat-num">6+</span><span class="stat-label">Trusted Brands</span></div>
+    <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Quality Assured</span></div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="categories" id="categories">
+  <div class="section-header">
+    <span class="label">What We Offer</span>
+    <h2>Our Product Range</h2>
+  </div>
+  <div class="cat-grid">
+    <div class="cat-card" onclick="showMenu('frozen')">
+      <span class="cat-icon">❄️</span>
+      <h3>Frozen Foods</h3>
+      <p>Fresh-frozen meals, vegetables and ready-to-cook items.</p>
+      <span class="view-btn">Browse →</span>
+    </div>
+    <div class="cat-card" onclick="showMenu('snacks')">
+      <span class="cat-icon">🫙</span>
+      <h3>Snacks</h3>
+      <p>Traditional Kerala snacks and modern favourites.</p>
+      <span class="view-btn">Browse →</span>
+    </div>
+    <div class="cat-card" onclick="showMenu('spices')">
+      <span class="cat-icon">🌿</span>
+      <h3>Spices</h3>
+      <p>Whole and ground spices sourced from Kerala's finest estates.</p>
+      <span class="view-btn">Browse →</span>
+    </div>
+    <div class="cat-card" onclick="showMenu('pickles')">
+      <span class="cat-icon">🥭</span>
+      <h3>Pickles</h3>
+      <p>Authentic homestyle pickles made with traditional recipes.</p>
+      <span class="view-btn">Browse →</span>
+    </div>
+    <div class="cat-card" onclick="showMenu('flours')">
+      <span class="cat-icon">🌾</span>
+      <h3>Variety Flours</h3>
+      <p>Freshly milled rice, wheat, and specialty flours.</p>
+      <span class="view-btn">Browse →</span>
+    </div>
+  </div>
+</section>
+
+<!-- MENUS -->
+<div id="menu-container">
+
+<section class="menu-section" id="menu-frozen">
+  <button class="menu-back" onclick="closeMenu()">← Back to Products</button>
+  <h2 class="menu-title">Frozen Foods</h2>
+  <div class="menu-divider"></div>
+  <div class="menu-grid">
+    <div class="menu-item"><div class="menu-item-name">Frozen Parotta</div><div class="menu-item-detail">Soft layered flatbreads, ready in minutes</div><span class="menu-item-tag">Ready to Cook</span></div>
+    <div class="menu-item"><div class="menu-item-name">Frozen Pathiri</div><div class="menu-item-detail">Traditional Malabar rice bread</div><span class="menu-item-tag">Ready to Cook</span></div>
+    <div class="menu-item"><div class="menu-item-name">Frozen Idiyappam</div><div class="menu-item-detail">Delicate steamed rice noodles</div><span class="menu-item-tag">Ready to Cook</span></div>
+    <div class="menu-item"><div class="menu-item-name">Frozen Appam</div><div class="menu-item-detail">Crispy-edge, soft-centre rice hoppers</div><span class="menu-item-tag">Ready to Cook</span></div>
+    <div class="menu-item"><div class="menu-item-name">Frozen Vegetables</div><div class="menu-item-detail">Seasonal vegetables, cleaned and blanched</div><span class="menu-item-tag">Fresh Frozen</span></div>
+    <div class="menu-item"><div class="menu-item-name">Frozen Snack Packs</div><div class="menu-item-detail">Assorted Kerala snack varieties</div><span class="menu-item-tag">Party Pack</span></div>
+  </div>
+</section>
+
+<section class="menu-section" id="menu-snacks">
+  <button class="menu-back" onclick="closeMenu()">← Back to Products</button>
+  <h2 class="menu-title">Snacks</h2>
+  <div class="menu-divider"></div>
+  <div class="menu-grid">
+    <div class="menu-item"><div class="menu-item-name">Banana Chips</div><div class="menu-item-detail">Crispy Kerala-style raw banana chips</div><span class="menu-item-tag">Traditional</span></div>
+    <div class="menu-item"><div class="menu-item-name">Murukku</div><div class="menu-item-detail">Crunchy rice and lentil spirals</div><span class="menu-item-tag">Traditional</span></div>
+    <div class="menu-item"><div class="menu-item-name">Mixture</div><div class="menu-item-detail">Spiced crunchy snack medley</div><span class="menu-item-tag">Savoury</span></div>
+    <div class="menu-item"><div class="menu-item-name">Jackfruit Chips</div><div class="menu-item-detail">Thinly sliced, lightly salted</div><span class="menu-item-tag">Local Produce</span></div>
+    <div class="menu-item"><div class="menu-item-name">Tapioca Chips</div><div class="menu-item-detail">Kerala kappa chips, plain & spiced</div><span class="menu-item-tag">Traditional</span></div>
+    <div class="menu-item"><div class="menu-item-name">Achappam</div><div class="menu-item-detail">Rose cookie sweet fried snack</div><span class="menu-item-tag">Festive</span></div>
+  </div>
+</section>
+
+<section class="menu-section" id="menu-spices">
+  <button class="menu-back" onclick="closeMenu()">← Back to Products</button>
+  <h2 class="menu-title">Spices</h2>
+  <div class="menu-divider"></div>
+  <div class="menu-grid">
+    <div class="menu-item"><div class="menu-item-name">Kerala Black Pepper</div><div class="menu-item-detail">Whole and ground, Wayanad origin</div><span class="menu-item-tag">Whole & Ground</span></div>
+    <div class="menu-item"><div class="menu-item-name">Turmeric Powder</div><div class="menu-item-detail">High curcumin, vibrant colour</div><span class="menu-item-tag">Ground</span></div>
+    <div class="menu-item"><div class="menu-item-name">Red Chilli Powder</div><div class="menu-item-detail">Medium-hot Kashmiri & hot varieties</div><span class="menu-item-tag">Ground</span></div>
+    <div class="menu-item"><div class="menu-item-name">Coriander Powder</div><div class="menu-item-detail">Freshly ground, aromatic</div><span class="menu-item-tag">Ground</span></div>
+    <div class="menu-item"><div class="menu-item-name">Cardamom</div><div class="menu-item-detail">Green pods, Idukki estate</div><span class="menu-item-tag">Whole</span></div>
+    <div class="menu-item"><div class="menu-item-name">Garam Masala Blend</div><div class="menu-item-detail">House-blend warming spice mix</div><span class="menu-item-tag">Blend</span></div>
+    <div class="menu-item"><div class="menu-item-name">Curry Leaf Powder</div><div class="menu-item-detail">Dried and ground fresh leaves</div><span class="menu-item-tag">Ground</span></div>
+    <div class="menu-item"><div class="menu-item-name">Cloves & Cinnamon</div><div class="menu-item-detail">Whole aromatic spices</div><span class="menu-item-tag">Whole</span></div>
+  </div>
+</section>
+
+<section class="menu-section" id="menu-pickles">
+  <button class="menu-back" onclick="closeMenu()">← Back to Products</button>
+  <h2 class="menu-title">Pickles</h2>
+  <div class="menu-divider"></div>
+  <div class="menu-grid">
+    <div class="menu-item"><div class="menu-item-name">Mango Pickle</div><div class="menu-item-detail">Raw mango in sesame oil & spices</div><span class="menu-item-tag">Bestseller</span></div>
+    <div class="menu-item"><div class="menu-item-name">Lemon Pickle</div><div class="menu-item-detail">Sun-cured lemon with aromatic spices</div><span class="menu-item-tag">Classic</span></div>
+    <div class="menu-item"><div class="menu-item-name">Garlic Pickle</div><div class="menu-item-detail">Whole garlic in tangy vinegar base</div><span class="menu-item-tag">Spicy</span></div>
+    <div class="menu-item"><div class="menu-item-name">Fish Pickle</div><div class="menu-item-detail">Traditional Kerala-style fish pickle</div><span class="menu-item-tag">Non-Veg</span></div>
+    <div class="menu-item"><div class="menu-item-name">Prawn Pickle</div><div class="menu-item-detail">Spiced and preserved prawns</div><span class="menu-item-tag">Non-Veg</span></div>
+    <div class="menu-item"><div class="menu-item-name">Mixed Vegetable Pickle</div><div class="menu-item-detail">Seasonal vegetables, slow-pickled</div><span class="menu-item-tag">Veg</span></div>
+  </div>
+</section>
+
+<section class="menu-section" id="menu-flours">
+  <button class="menu-back" onclick="closeMenu()">← Back to Products</button>
+  <h2 class="menu-title">Variety Flours</h2>
+  <div class="menu-divider"></div>
+  <div class="menu-grid">
+    <div class="menu-item"><div class="menu-item-name">Rice Flour</div><div class="menu-item-detail">Freshly milled, fine & coarse grades</div><span class="menu-item-tag">Freshly Milled</span></div>
+    <div class="menu-item"><div class="menu-item-name">Wheat Flour (Atta)</div><div class="menu-item-detail">Whole wheat, stone-ground</div><span class="menu-item-tag">Freshly Milled</span></div>
+    <div class="menu-item"><div class="menu-item-name">Coconut Flour</div><div class="menu-item-detail">Dried & milled, gluten-free</div><span class="menu-item-tag">Speciality</span></div>
+    <div class="menu-item"><div class="menu-item-name">Ragi Flour</div><div class="menu-item-detail">Finger millet, high-nutrition</div><span class="menu-item-tag">Health</span></div>
+    <div class="menu-item"><div class="menu-item-name">Puttu Flour</div><div class="menu-item-detail">Roasted rice flour for puttu</div><span class="menu-item-tag">Traditional</span></div>
+    <div class="menu-item"><div class="menu-item-name">Chickpea Flour (Besan)</div><div class="menu-item-detail">Fine-ground gram flour</div><span class="menu-item-tag">Versatile</span></div>
+  </div>
+</section>
+
+</div>
+
+<!-- BRANDS -->
+<section class="brands" id="brands">
+  <div class="section-header">
+    <span class="label">Our Partners</span>
+    <h2>Trusted Brands We Carry</h2>
+  </div>
+  <div class="brand-list">
+    <div class="brand-chip">Daily Delight</div>
+    <div class="brand-chip">Parayil Foods</div>
+    <div class="brand-chip">Little Rani</div>
+    <div class="brand-chip">Freshly Milled</div>
+    <div class="brand-chip">Malabar Foods</div>
+    <div class="brand-chip">MPI</div>
+    <div class="brand-chip">Hilly Aqua</div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <span class="label">Get In Touch</span>
+  <h2>Visit or Contact Us</h2>
+  <p>We'd love to hear from you. Visit us in Pravithanam, Pala or reach out directly.</p>
+  <div class="contact-cards">
+    <div class="contact-card">
+      <span class="cc-label">Location</span>
+      <div class="cc-value">Pravithanam, Pala<br>Kerala, India</div>
+    </div>
+    <div class="contact-card">
+      <span class="cc-label">Mobile</span>
+      <a href="tel:+919447568980">+91 94475 68980</a>
+    </div>
+    <div class="contact-card">
+      <span class="cc-label">Email</span>
+      <a href="mailto:choicefoodspala@gmail.com">choicefoodspala@gmail.com</a>
+    </div>
+  </div>
+  <a class="whatsapp-btn" href="https://wa.me/919447568980" target="_blank">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Chat on WhatsApp
+  </a>
+</section>
+
+<footer>
+  <p>© 2025 <span>Choice Foods</span> &nbsp;·&nbsp; Pravithanam, Pala &nbsp;·&nbsp; choicefoodspala@gmail.com &nbsp;·&nbsp; +91 94475 68980</p>
+</footer>
+
+<script>
+  function showMenu(cat) {
+    document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active'));
+    const el = document.getElementById('menu-' + cat);
+    if (el) {
+      el.classList.add('active');
+      setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+    }
+  }
+  function closeMenu() {
+    document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active'));
+    document.getElementById('categories').scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
